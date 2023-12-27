@@ -30,7 +30,7 @@ const Dashboard = () => {
 
     return (
       <>
-        {sideBarOptions[0]?.isActive? <SampleProjects images={images} isMobile={isMobile} />:null}
+        {sideBarOptions[0]?.isActive? <SampleProjects images={images}  />:null}
         {/* {sideBarOptions[1].isActive && <SampleProjects images={images} isMobile={isMobile} />}
         {sideBarOptions[2].isActive && <SampleProjects images={images} isMobile={isMobile} />} */}
         {sideBarOptions[3]?.isActive?<MyProjects isMobile={isMobile} images={images}/>:null}
