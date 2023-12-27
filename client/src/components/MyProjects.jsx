@@ -9,11 +9,16 @@ import BgImg from '../assets/BG.svg';
 const MyProjects = () => {
   const { isOffcanvasOpen, shouldUpdate, loading, setLoading } = useUpdate();
   const [projects, setProjects] = useState([{}]);
-  const modalInfo = {
-    title: "Add Project",
-    idM: 'addProject',
-    isAddProjectModal: true
-  }
+  const [modalInfo, setModalInfo] = useState({
+    title: '',
+    content: '',
+    idM: '',
+    isAddProjectModal: true,
+    isEditProjectModal: false,
+    isDeleteProjectModal: false,
+    isViewProjectModal: false
+  })
+ 
   const token = getLocalStorageWithExpiry('auth')?.token;
 
   useEffect(() => {
@@ -53,71 +58,108 @@ const MyProjects = () => {
   }, []);
   return (
     <>
-      <div className={`d-flex justify-content-center align-items-center ${isOffcanvasOpen && !isMobile ? ' offcanvas-open container-sm' : 'offcanvas-close container-fluid'}`} style={{ backgroundColor: 'darkgrey ' }}>
-        <div className='row w-100  d-flex justify-content-start align-items-start ms-5'>
-          <div className='col-12 mt-3 w-100 d-flex justify-content-end'>
-            <button className='btn mx-5 my-2' style={{ backgroundColor: "#FA782F", color: "#fff", width: "5em", height: "3em" }} data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`}><i class="bi bi-plus-circle"></i></button>
-          </div>
-          {projects.length > 0 ? projects?.map((project, index) => {
-            return (
-              <div className={`col-md-4 my-3 mx-5 col-sm-6 col-12`} key={index}>
-                {index === 0 && <h2 className='text-dark text-start my-4' style={{ fontWeight: '500' }}><b>My Projects</b></h2>}
+    <div className={`d-flex justify-content-center align-items-center ${isOffcanvasOpen && !isMobile ? 'offcanvas-open container-sm' : 'offcanvas-close container-fluid'}`} style={{ backgroundColor: 'darkgrey ' }}>
+      <div className={`row w-100 d-flex justify-content-${isMobile ? 'center' : 'start'} align-items-${isMobile ? 'center' : 'start'} ${isMobile ? 'ms-0' : 'ms-5'}`}>
+        <div className={`col-12 mt-3 w-100 d-flex justify-content-${isMobile ? 'center' : 'end'}`}>
+          <button onClick={() => setModalInfo({
+            title: 'Add Project',
+            content: '',
+            idM: 'addProject',
+            isAddProjectModal: true,
+            isEditProjectModal: false,
+            isDeleteProjectModal: false,
+            isViewProjectModal: false
 
-                <div className={`card ${isOffcanvasOpen ? 'side_bar_open' : ''}`}
-                  style={(isOffcanvasOpen || !isOffcanvasOpen) && index === 1 && !isMobile ? { width: '100%', maxWidth: '20rem', marginTop: "5.3em", cursor: "pointer" } : { width: '100%', maxWidth: '20rem', cursor: "pointer" }}>
-
-                  <div className='m-3'>
-
-                    <img
-                      src={project?.image}
-                      alt="..."
-                      className='img-fluid rounded'
-                      style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }}
-                    />
-                  </div>
-                  <div className={`card-body`}>
-                    <h5 className="card-title d-flex justify-content-between">{project?.title}<span className='text-end' style={{ marginLeft: "5em" }}><i class="bi bi-trash-fill"></i></span>
-                      <span className='text-end'><i class="bi bi-pencil-fill"></i></span>
-                    </h5>
-
-                    <p className="card-text">
-                      {project?.description + '...'}
-                    </p>
-
-                  </div>
-                </div>
-
-              </div>
-            )
-          }) : (
-            <>
-              <div className='col-md-4 my-3 mx-5 col-sm-6 col-12 vh-100'>
-                <h3 className='text-start my-3'>My Projects</h3>
-                <div className='card d-flex justify-content-start ' style={{ width: '100%', maxWidth: "20em" }}>
-                  <div className='m-2'>
-                    <img
-                      src={BgImg}
-                      alt="..."
-                      className='img-fluid rounded'
-                      style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }}
-                    />
-                  </div>
-                  <div className={`card-body text-center`}>
-                    <h5 className="card-title"><b>Create a new project</b></h5>
-                    <p className="card-text">
-                      or try a sample project
-                    </p>
-
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-
+          })} className='btn mx-5 my-2' style={{ backgroundColor: "#FA782F", color: "#fff", width: "5em", height: "3em" }} data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`}>
+            <i className="bi bi-plus-circle"></i>
+          </button>
         </div>
+        {projects.length > 0 ? projects?.map((project, index) => {
+          return (
+            <div className={`col-md-4 my-3 mx-5 col-sm-6 col-12`} key={index}>
+              {index === 0 && <h2 className='text-dark text-start my-4' style={{ fontWeight: '500' }}><b>My Projects</b></h2>}
+  
+              <div className={`card ${isOffcanvasOpen ? 'side_bar_open' : ''}`}
+                style={(isOffcanvasOpen || !isOffcanvasOpen) && index === 1 && !isMobile ? { width: '100%', maxWidth: '20rem', marginTop: "5.3em", cursor: "pointer" } : { width: '100%', maxWidth: '20rem', cursor: "pointer" }}>
+  
+                <div className='m-3'>
+                  <img
+                    src={project?.image}
+                    alt="..."
+                    className='img-fluid rounded'
+                    style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }}
+                  />
+                </div>
+                <div className={`card-body`}>
+                  <h5 className="card-title d-flex justify-content-between">{project?.title}
+                    <span  className='text-end' style={{ marginLeft: isMobile ? "0.5em" : "5em" }}>
+                      <div style={{cursor: "pointer"}}>
+                      <i onClick={() => setModalInfo({
+                        title: 'Delete Project',
+                        content: 'Deete babe',
+                        idM: 'deleteProject',
+                        isAddProjectModal: false,
+                        isEditProjectModal: false,
+                        isDeleteProjectModal: true,
+                        isViewProjectModal: false
+
+                      })}  data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`} className="bi bi-trash-fill"></i>
+                      </div>
+                    </span>
+                    <span  className='text-end'>
+                     <div style={{cursor: "pointer"}}>
+                     <i  onClick={() => setModalInfo({
+                        title: 'Edit Project',
+                        content: 'Edit Babe',
+                        idM: 'editProject',
+                        isAddProjectModal: false,
+                        isEditProjectModal: true,
+                        isDeleteProjectModal: false,
+                        isViewProjectModal: false
+
+                      })}  data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`} className="bi bi-pencil-fill"></i>
+                     </div>
+                    </span>
+                  </h5>
+  
+                  <p className="card-text">
+                    {project?.description + '...'}
+                  </p>
+  
+                </div>
+              </div>
+  
+            </div>
+          )
+        }) : (
+          <>
+            <div className={`col-md-4 my-3 mx-5 col-sm-6 col-12 vh-100 ${isMobile ? 'text-center' : ''}`}>
+              <h3 className={`${isMobile ? 'my-3' : 'text-start'}`}>My Projects</h3>
+              <div className={`card ${isMobile ? 'd-flex justify-content-center' : 'd-flex justify-content-start'} `} style={{ width: '100%', maxWidth: isMobile ? "20em" : "20rem" }}>
+                <div className='m-2'>
+                  <img
+                    src={BgImg}
+                    alt="..."
+                    className='img-fluid rounded'
+                    style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }}
+                  />
+                </div>
+                <div className={`card-body ${isMobile ? 'text-center' : ''}`}>
+                  <h5 className="card-title"><b>Create a new project</b></h5>
+                  <p className="card-text">
+                    or try a sample project
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+  
       </div>
-      <Modal isAddProjectModal={modalInfo.isAddProjectModal} idM={modalInfo.idM} title={modalInfo.title} />
-    </>
+    </div>
+    <Modal isAddProjectModal={modalInfo.isAddProjectModal} idM={modalInfo.idM} title={modalInfo.title} />
+  </>
+  
   )
 }
 
