@@ -31,7 +31,7 @@ const updateProject = async (req, res) => {
     try {
         const updatedProject = await Project.findByIdAndUpdate(id, { title, description, image, githubLink, websiteLink, createdBy }, { new: true });
         if (updatedProject) {
-            return res.status(200).json({ project: updatedProject, message });
+            return res.status(200).json({ project: updatedProject, message: "Project updated!" });
         }
         throw new Error("Project not found");
     } catch (error) {
@@ -52,4 +52,17 @@ const deleteProject = async (req, res) => {
     }
 };
 
-export { createProject, getUserProjects, updateProject, deleteProject };
+const getSingleProject = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const project = await Project.findById(id).populate("createdBy", "username");
+        if (project) {
+            return res.status(200).json({ project });
+        }
+        throw new Error("Project not found");
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
+export { createProject, getUserProjects, updateProject, deleteProject, getSingleProject};

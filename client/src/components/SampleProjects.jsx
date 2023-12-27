@@ -30,12 +30,12 @@ const SampleProjects = ({ images }) => {
     }, []);
     return (
         <>
-            <div className={`d-flex justify-content-center align-items-center ${isOffcanvasOpen && !isMobile ? ' offcanvas-open container-sm' : 'offcanvas-close container-fluid'}`} style={{ backgroundColor: 'darkgrey ' }}>
+            <div className={`d-flex justify-content-center align-items-center ${isOffcanvasOpen && !isMobile ? ' offcanvas-open container-sm' : 'offcanvas-close container-fluid'}`}>
                 <div className='row w-100  d-flex justify-content-center align-items-center'>
                     {images.map((image, index) => {
                         return (
                             <div className={`col-md-4 my-3 mx-5 col-sm-6 col-12`} key={index}>
-                                {index === 0 && <h2 className='text-dark text-start my-4' style={{ fontWeight: '500' }}><b>Sample {isMobile ? "mobile" : 'pc'} Projects</b></h2>}
+                                {index === 0 && <h2 className='text-dark text-start my-4' style={{ fontWeight: '500' }}><b>Sample Projects</b></h2>}
 
                                 <div className={`card ${isOffcanvasOpen ? 'side_bar_open' : ''}`} onClick={
                                     () => {

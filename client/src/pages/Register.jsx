@@ -103,18 +103,16 @@ const Register = () => {
                                 />
                             </div>
                             <div className="my-3 d-flex justify-content-end">
-                                <button type="submit" disabled={loading} className="btn btn-primary">
+                                <button style={{backgroundColor: "#FA782F"}} type="submit" disabled={loading} className="btn text-light">
                                     {loading ? 'Registering...' : 'Register'}
                                 </button>
                             </div>
                         </form>
                         <hr />
-                        <p className="my-3 text-center">
-                           <button onClick={() => registerWithGoogle()} className="btn btn-dark my-2">Register with Google <i class="bi bi-google"></i></button>
-                        </p>
+                        
                         <p className="my-3 text-center">
                             Already have an account?{' '}
-                            <Link to="/">Login here</Link>
+                            <Link to="/" style={{color: "#FA782F", textDecoration: "none"}}>Login here</Link>
                         </p>
                     </div>
                 </div>

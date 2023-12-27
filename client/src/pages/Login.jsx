@@ -90,18 +90,16 @@ const Login = () => {
                                 />
                             </div>
                             <div className="my-3 d-flex justify-content-end">
-                                <button disabled={loading} type="submit" className="btn btn-primary">
+                                <button style={{backgroundColor: "#FA782F"}} disabled={loading} type="submit" className="btn text-light">
                                     {loading ? 'Logging In...' : 'Login'}
                                 </button>
                             </div>
                         </form>
                         <hr />
-                        <p className="my-3 text-center">
-                           <button onClick={()=> logInWithGoogle()} className="btn btn-dark my-2">Login with Google <i class="bi bi-google"></i></button>
-                        </p>
+                        
                         <p className="my-3 text-center">
                             Don't have an account?{' '}
-                            <Link to="/register">Register here</Link>
+                            <Link style={{textDecoration: "none",color: "#FA782F"}} to="/register">Register here</Link>
                         </p>
                     </div>
                 </div>

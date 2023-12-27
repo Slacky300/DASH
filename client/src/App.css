@@ -4,6 +4,10 @@
     transition: all 0.3s ease;
 }
 
+body{
+    background-color: #f5f5f5;
+
+}
 .offcanvas-open {
     transition: margin 0.3s;
     margin-left: 300px;

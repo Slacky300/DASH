@@ -1,25 +1,11 @@
 import express from 'express';
 import dbConnect from './utils/dbConnect.js';
 import cors from 'cors';
-import passport from 'passport';
-import session from 'express-session';
 import userRouter from './routes/user.js';
 import projectRouter from './routes/project.js';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-
-
-
-app.use(session({
-  secret: process.env.JWT_SECRET,
-  resave: false,
-  saveUninitialized: false,
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 
 

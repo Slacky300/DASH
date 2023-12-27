@@ -3,6 +3,7 @@ import { useUpdate } from '../context/hasUpdated';
 import { getRandomImages } from '../helpers/dash/dashFn';
 import SampleProjects from '../components/SampleProjects';
 import MyProjects from '../components/MyProjects';
+import Dummy from '../components/Dummy';
 
 
 const Dashboard = () => {
@@ -31,9 +32,10 @@ const Dashboard = () => {
     return (
       <>
         {sideBarOptions[0]?.isActive? <SampleProjects images={images}  />:null}
-        {/* {sideBarOptions[1].isActive && <SampleProjects images={images} isMobile={isMobile} />}
-        {sideBarOptions[2].isActive && <SampleProjects images={images} isMobile={isMobile} />} */}
+        
         {sideBarOptions[3]?.isActive?<MyProjects isMobile={isMobile} images={images}/>:null}
+
+        {!sideBarOptions[0]?.isActive && !sideBarOptions[3]?.isActive?<Dummy/>:null}
       </>
     );
 };

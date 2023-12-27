@@ -30,6 +30,18 @@ export const UpdateProvider = ({ children }) => {
       icon: 'MyProjects',
       link: '/my-projects',
       isActive: true
+    },
+    {
+      name: 'Help',
+      icon: 'Help',
+      link: '/help',
+      isActive: false
+    },
+    {
+      name: 'Feedback',
+      icon: 'Feedback',
+      link: '/feedback',
+      isActive: false
     }
   ]);
 
@@ -38,6 +50,7 @@ export const UpdateProvider = ({ children }) => {
   };
 
   const triggerUpdate = () => {
+    console.log('triggered');
     setShouldUpdate(prev => !prev);
   };
 
