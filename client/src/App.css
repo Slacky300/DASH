@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.offcanvas-open {
+    transition: margin 0.3s;
+    margin-left: 300px;
+    /* Adjust the value based on the width of your offcanvas */
+}
+
+.offcanvas-close {
+    transition: margin 0.3s;
+    margin-right: 300px;
+}
+
+.side_bar_open{
+    width: 18em;
+    height: auto;
+    transition: all 0.3s;
+}
+
+.card-text-when-sidebar-open{
+    display: block;
+    font-size: 1em;
+}
+
+.active_side{
+    color: orange;
+}
