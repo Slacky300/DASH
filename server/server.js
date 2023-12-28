@@ -15,10 +15,10 @@ app.use(express.json());
 app.use(cors());
 
 
-const startServer = () =>  app.listen(PORT, async () => {
+const startServer = async () =>  {
   await dbConnect();
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
 
 startServer();
 
