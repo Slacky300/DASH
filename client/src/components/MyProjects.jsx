@@ -66,7 +66,7 @@ const MyProjects = () => {
       </div> : (<>
         <div className={`d-flex justify-content-center align-items-center ${isOffcanvasOpen && !isMobile ? 'offcanvas-open container-sm' : 'offcanvas-close container-fluid'}`}>
           <div className={`row w-100 d-flex justify-content-${isMobile ? 'center' : 'start'} align-items-${isMobile ? 'center' : 'start'} ${isMobile ? 'ms-0' : 'ms-5'}`}>
-            <div className={`col-12 mt-3 w-100 d-flex justify-content-${isMobile ? 'center' : 'end'}`}>
+            <div className={`col-12 mt-3 w-100 d-flex justify-content-${isMobile ? 'center' : 'end'}` }  data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`}>
               <button onClick={() => setModalInfo({
                 title: 'Add Project',
                 content: '',
@@ -76,7 +76,7 @@ const MyProjects = () => {
                 isDeleteProjectModal: false,
                 isViewProjectModal: false
 
-              })} className='btn mx-5 my-2' style={{ backgroundColor: "#FA782F", color: "#fff", width: "5em", height: "3em" }} data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`}>
+              })} className='btn mx-5 my-2' style={{ backgroundColor: "#FA782F", color: "#fff", width: "5em", height: "3em" }}>
                 <i className="bi bi-plus-circle"></i>
               </button>
             </div>
@@ -164,7 +164,7 @@ const MyProjects = () => {
               <>
                 <div className={`col-md-4 my-3 mx-5 col-sm-6 col-12 vh-100 ${isMobile ? 'text-center' : ''}`}>
                   <h3 className={`${isMobile ? 'my-3' : 'text-start'}`}>My Projects</h3>
-                  <div className={`card ${isMobile ? 'd-flex justify-content-center' : 'd-flex justify-content-start'} `} style={{ width: '100%', maxWidth: isMobile ? "20em" : "20rem" }}>
+                  <div  data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`} className={`card ${isMobile ? 'd-flex justify-content-center' : 'd-flex justify-content-start'} `} style={{ width: '100%', cursor: "pointer", maxWidth: isMobile ? "20em" : "20rem" }}>
                     <div className='m-2' data-bs-toggle="modal" data-bs-target={`#${modalInfo.idM}`}>
                       <img
                         src={BgImg}
