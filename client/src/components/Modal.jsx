@@ -41,15 +41,33 @@ const Modal = ({ title, content, idM, pId, isAddProjectModal, isViewProjectModal
             toast.warning("Title and Description are required");
             return;
         }
-        if (!isValidUrl(addProject.websiteLink)) {
-            alert('Invalid website link');
+
+        if(addProject.title.length > 50 || addProject.description.length > 500 ){
+            toast.warning("some fields are too long");
             return;
+        }
+        if(addProject.image){
+            if (!isValidUrl(addProject.image)) {
+                toast.warning('Invalid image link');
+                return;
+            }
         }
 
-        if (!isValidUrl(addProject.githubLink)) {
-            alert('Invalid GitHub link');
-            return;
+        if(addProject.websiteLink){
+            if (!isValidUrl(addProject.websiteLink)) {
+                toast.warning('Invalid website link');
+                return;
+            }
         }
+
+        if(addProject.githubLink){
+            if (!isValidUrl(addProject.githubLink)) {
+                toast.warning('Invalid GitHub link');
+                return;
+            }
+        }
+
+      
         setLoading(true);
         const res = await addProjectData(token, addProject).finally(() => {
             setLoading(false); document.getElementById('closeModal').click();
@@ -217,9 +235,9 @@ const Modal = ({ title, content, idM, pId, isAddProjectModal, isViewProjectModal
                                     <div className="lead">
                                         <h4 className="modal-title fs-5" id="exampleModalLabel">Title: {editProject?.title}</h4>
                                         <p className="text-muted"><b style={{ color: "black" }}>Description:</b> {editProject?.description}</p>
-                                        <img src={editProject?.image} alt='project' className='img-fluid' />
-                                        <p className="text-muted"><b style={{ color: "black" }}>Live Link:</b> {editProject?.websiteLink}</p>
-                                        <p className="text-muted"><b style={{ color: "black" }}>Github Link:</b> {editProject?.githubLink}</p>
+                                        <img src={editProject?.image.length>0 ? editProject.image : "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA12rZ8k.img"} alt='project' className='img-fluid' />
+                                        <p className="text-muted"><b style={{ color: "black" }}>Live Link:</b> {editProject?.websiteLink? editProject.websiteLink: "Not provided"}</p>
+                                        <p className="text-muted"><b style={{ color: "black" }}>Github Link:</b> {editProject?.githubLink? editProject.githubLink: "Not provided"}</p>
                                     </div>
                                 </>}
 

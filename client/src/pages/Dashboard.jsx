@@ -22,7 +22,6 @@ const Dashboard = () => {
         const getImages = async () => {
             const res = await getRandomImages();
             if (res.status === 200) {
-                console.log(res.data);
                 setImages(res.data);
             }
         }
