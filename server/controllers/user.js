@@ -18,9 +18,10 @@ export const register = async (req, res) => {
         const doesUsernameExists = await User.findOne({ username });
         if (doesUsernameExists) return res.status(400).json({ message: `Username ${username} already exists` });
         const hashedPassword = await bcrypt.hash(password, 12);
-        const verificationToken = generateverificationToken(email);
-        await sendVerificationEmail(email.toLowerCase(), verificationToken, username);
+        const verificationToken = await generateverificationToken(email);
+        console.log(verificationToken);
         const result = await User.create({ email, password: hashedPassword, username, verificationToken });
+        await sendVerificationEmail(email.toLowerCase(), verificationToken, username);
         res.status(201).json({ user: result, message: `Verification email has been sent to ${email}` });
     } catch (error) {
         res.status(500).json({ message: error.message });
