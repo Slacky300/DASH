@@ -40,6 +40,13 @@ const Modal = ({ title, content, idM, pId, randomImg, isAddProjectModal, isViewP
         if (addProject.title.trim() === "" || addProject.description.trim() === "") {
             toast.warning("Title and Description are required");
             return;
+
+
+        }
+
+        if(addProject.title.length < 5 || addProject.description.length < 5 ){
+            toast.warning("some fields are too short");
+            return;
         }
 
         if(addProject.title.length > 50 || addProject.description.length > 500 ){
