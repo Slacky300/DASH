@@ -4,7 +4,7 @@ import { addProjectData, deleteProject, getSingleProject, updateProject } from '
 import { useUpdate } from '../context/hasUpdated';
 import { toast } from 'react-toastify';
 
-const Modal = ({ title, content, idM, pId, isAddProjectModal, isViewProjectModal, isEditProjectModal, isDeleteProjectModal }) => {
+const Modal = ({ title, content, idM, pId, randomImg, isAddProjectModal, isViewProjectModal, isEditProjectModal, isDeleteProjectModal }) => {
     const [addProject, setAddProject] = useState({
         title: "",
         description: "",
@@ -235,7 +235,7 @@ const Modal = ({ title, content, idM, pId, isAddProjectModal, isViewProjectModal
                                     <div className="lead">
                                         <h4 className="modal-title fs-5" id="exampleModalLabel">Title: {editProject?.title}</h4>
                                         <p className="text-muted"><b style={{ color: "black" }}>Description:</b> {editProject?.description}</p>
-                                        <img src={editProject?.image.length>0 ? editProject.image : "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA12rZ8k.img"} alt='project' className='img-fluid' />
+                                        <img src={editProject?.image.length>0 ? editProject.image : randomImg[Math.floor(Math.random() * 5)].download_url} alt='project' className='img-fluid' />
                                         <p className="text-muted"><b style={{ color: "black" }}>Live Link:</b> {editProject?.websiteLink? editProject.websiteLink: "Not provided"}</p>
                                         <p className="text-muted"><b style={{ color: "black" }}>Github Link:</b> {editProject?.githubLink? editProject.githubLink: "Not provided"}</p>
                                     </div>

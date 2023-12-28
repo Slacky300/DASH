@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useUpdate } from '../context/hasUpdated';
 import Modal from './Modal';
 import { getLocalStorageWithExpiry } from '../helpers/auth/authFn';
-import { getUserProjects } from '../helpers/dash/dashFn';
+import { getRandomImages, getUserProjects } from '../helpers/dash/dashFn';
 import { toast } from 'react-toastify';
 import BgImg from '../assets/BG.svg';
 
 const MyProjects = () => {
   const { isOffcanvasOpen, shouldUpdate, loading, setLoading } = useUpdate();
   const [projects, setProjects] = useState([{}]);
+  const [randomImages, setRandomImages] = useState([{}]);
   const [modalInfo, setModalInfo] = useState({
     title: '',
     content: '',
@@ -41,7 +42,21 @@ const MyProjects = () => {
 
     fetchProjects();
 
+    const populateImages = async () => {
+      const res = await getRandomImages();
+      if (res.status === 200) {
+        setRandomImages(res.data);
+      }
+      else {
+        toast(res.data, { type: 'error' });
+      }
+    }
+
+    populateImages();
+
   }, [shouldUpdate])
+
+
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -92,7 +107,7 @@ const MyProjects = () => {
 
                     <div className='m-3'>
                       <img
-                        src={project?.image ? project?.image : "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA12rZ8k.img"}
+                        src={project?.image ? project?.image : randomImages[index].download_url}
                         alt="..."
                         className='img-fluid rounded'
                         style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }}
@@ -200,7 +215,7 @@ const MyProjects = () => {
         <Modal content={modalInfo.content} pId={projectId}
 
           isViewProjectModal={modalInfo.isViewProjectModal} isDeleteProjectModal={modalInfo.isDeleteProjectModal} isEditProjectModal={modalInfo.isEditProjectModal}
-          isAddProjectModal={modalInfo.isAddProjectModal} idM={modalInfo.idM} title={modalInfo.title} />
+          isAddProjectModal={modalInfo.isAddProjectModal} idM={modalInfo.idM} title={modalInfo.title} randomImg = {randomImages} />
       </>)}
     </>
 
