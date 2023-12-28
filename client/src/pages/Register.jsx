@@ -25,7 +25,7 @@ const Register = () => {
 
     useEffect(() => {
         if (token) {
-            navigate('/');
+            navigate('/dashboard');
         }
     }, []);
 
