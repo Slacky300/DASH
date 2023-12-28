@@ -122,15 +122,38 @@ const Modal = ({ title, content, idM, pId, randomImg, isAddProjectModal, isViewP
         if (editProject.title.trim() === "" || editProject.description.trim() === "") {
             toast.warning("Title and Description are required");
             return;
+
+
         }
-        if (!isValidUrl(editProject.websiteLink)) {
-            alert('Invalid website link');
+
+        if(editProject.title.length < 5 || editProject.description.length < 5 ){
+            toast.warning("some fields are too short");
             return;
         }
 
-        if (!isValidUrl(editProject.githubLink)) {
-            alert('Invalid GitHub link');
+        if(editProject.title.length > 50 || editProject.description.length > 500 ){
+            toast.warning("some fields are too long");
             return;
+        }
+        if(editProject.image){
+            if (!isValidUrl(editProject.image)) {
+                toast.warning('Invalid image link');
+                return;
+            }
+        }
+
+        if(editProject.websiteLink){
+            if (!isValidUrl(editProject.websiteLink)) {
+                toast.warning('Invalid website link');
+                return;
+            }
+        }
+
+        if(editProject.githubLink){
+            if (!isValidUrl(editProject.githubLink)) {
+                toast.warning('Invalid GitHub link');
+                return;
+            }
         }
         setLoading(true);
         const res = await updateProject(token, pId, editProject).finally(() => {
