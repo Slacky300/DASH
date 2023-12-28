@@ -20,7 +20,7 @@ export const register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         const verificationToken = generateverificationToken(email);
         await sendVerificationEmail(email.toLowerCase(), verificationToken, username);
-        const result = await User.create({ email, password: hashedPassword, username, verificationToken, isVerified: true });
+        const result = await User.create({ email, password: hashedPassword, username, verificationToken });
         res.status(201).json({ user: result, message: `Verification email has been sent to ${email}` });
     } catch (error) {
         res.status(500).json({ message: error.message });
